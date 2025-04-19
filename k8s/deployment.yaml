@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: estetica-web
-        image: faelsouz/dra-ana-paula:v2.0.3
+        image: faelsouz/estetica-web:v1.0.0
         ports:
         - containerPort: 80
         env:

@@ -1,0 +1,12 @@
+﻿{
+  "repositoryName": "faelsou/draanaula-web",
+  "pipelineDirectory": "draanaula-web",
+  "workspaceDirectory": "draanaula-web/draanaula-web",
+  "repositories": {
+    "faelsou/draanaula-web": {
+      "repositoryPath": "draanaula-web/draanaula-web",
+      "lastRunOn": "04/19/2025 11:54:35 -03:00"
+    }
+  },
+  "lastRunOn": "04/19/2025 11:54:35 -03:00"
+}

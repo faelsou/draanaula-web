@@ -63,8 +63,8 @@ jobs:
     - name: Atualizar imagem no Deployment
       run: |
         kubectl set image deployment/estetica-web \
-          estetica-web=faelsouz/dra-ana-paula:latest \
-          -n est-web
+          estetica-web=faelsouz/estetica-web:latest \
+          -n dra-web
 
     - name: Aguardar rollout do Deployment
       run: |
