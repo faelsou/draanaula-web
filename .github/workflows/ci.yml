@@ -50,15 +50,16 @@ jobs:
     - name: Set up kubectl
       uses: azure/setup-kubectl@v3
       
-#    - name: Configure Kubernetes config
-#      run: |
-#        mkdir -p $HOME/.kube/
-#        echo "${{ secrets.KUBE_CONFIG }}" > $HOME/.kube/config
-#        chmod 600 $HOME/.kube/config
     - name: Configurar KUBECONFIG
       run: |
         mkdir -p ~/.kube
-        echo "${{ secrets.KUBECONFIG_BASE64 }}" > ~/.kube/config
+        echo "${{ secrets.KUBECONFIG_BASE64 }}" | base64 -d > ~/.kube/config
+        chmod 600 ~/.kube/config
+
+#    - name: Configurar KUBECONFIG
+#      run: |
+#        mkdir -p ~/.kube
+#        echo "${{ secrets.KUBECONFIG_BASE64 }}" > ~/.kube/config
     
     - name: Atualizar imagem no Deployment
       run: |
