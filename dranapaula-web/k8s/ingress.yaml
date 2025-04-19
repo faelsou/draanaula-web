@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dranapaula-web-ingress
+  namespace: est-web
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+  - host: "dranapaulasou.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: dranapaula-web-service
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - "dranapaulasou.com"
+    secretName: dranapaula-tls

@@ -15,16 +15,17 @@ const Newsletter = () => {
       const { error } = await supabase
         .from('newsletter_subscribers')
         .insert([{ email }]);
-
+    
       if (error) throw error;
-
+    
       setStatus('success');
       setMessage('Obrigado por se inscrever!');
       setEmail('');
-    } catch (error) {
+    } catch {
       setStatus('error');
       setMessage('Erro ao se inscrever. Tente novamente.');
-    }
+    }    
+    
   };
 
   return (
