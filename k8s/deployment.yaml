@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: estetica-web
+  namespace: dra-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: estetica-web
+  template:
+    metadata:
+      labels:
+        app: estetica-web
+    spec:
+      containers:
+      - name: estetica-web
+        image: faelsouz/dra-ana-paula:v2.0.3
+        ports:
+        - containerPort: 80
+        env:
+        - name: VITE_SUPABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: supabase-secrets
+              key: url
+        - name: VITE_SUPABASE_ANON_KEY
+          valueFrom:
+            secretKeyRef:
+              name: supabase-secrets
+              key: anon-key
+        resources:
+          limits:
+            cpu: "0.5"
+            memory: "512Mi"
+          requests:
+            cpu: "0.2"
+            memory: "256Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: estetica-web-service
+spec:
+  selector:
+    app: estetica-web
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer

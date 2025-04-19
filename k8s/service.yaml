@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: estetica-web-service
+  namespace: dra-web
+spec:
+  selector:
+    app: estetica-web
+  ports:
+    - port: 80
+      targetPort: 80

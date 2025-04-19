@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: estetica-web-ingress
+  namespace: est-web
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  rules:
+  - host: "draanapaulasou.com"
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: estetica-web-service
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - "draanapaulasou.com"
+    secretName: draanapaula-tls
