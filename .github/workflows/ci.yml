@@ -75,10 +75,8 @@ jobs:
 
       - name: Forçar restart dos pods (touch annotation)
         run: |
-          kubectl patch deployment estetica-web \
-            -n dra-web \
-            -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"restarted-at\":\"$(date +%s)\"}}}}}"
-
+          kubectl rollout start deployment/estetica-web -n dra-web
+          
       - name: Aguardar rollout do Deployment
         run: |
           kubectl rollout status deployment/estetica-web -n dra-web
