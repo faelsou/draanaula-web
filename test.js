@@ -4,12 +4,12 @@ import { check } from 'k6';
 export let options = {
     // Configuração de carga
     stages: [
-        { duration: '30s', target: 100 }, // Vai atingir 100 usuários em 30 segundos
+        { duration: '60s', target: 1000 }, // Vai atingir 100 usuários em 30 segundos
     ],
 };
 
 export default function () {
-    const res = http.get('http://localhost:5173/'); //inserir url 
+    const res = http.get('https://draanapaulasou.com'); //inserir url 
 
     // Verifica se a resposta tem status 200 e se o corpo tem mais de 1000 bytes
     check(res, {
