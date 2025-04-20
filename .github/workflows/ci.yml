@@ -54,10 +54,18 @@ jobs:
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
 
+#      - name: Configurar KUBECONFIG
+#        run: |
+#          mkdir -p ~/.kube
+#          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
       - name: Configurar KUBECONFIG
         run: |
           mkdir -p ~/.kube
-          echo "${{ secrets.KUBE_CONFIG }}" > ~/.kube/config
+          echo "${{ secrets.KUBECONFIG_BASE64 }}" > ~/.kube/config
+          chmod 600 ~/.kube/config
+          echo "KUBECONFIG:"
+          cat ~/.kube/config
+          kubectl version --short || echo "Falha ao conectar ao cluster"
 
       - name: Atualizar imagem no Deployment
         run: |
