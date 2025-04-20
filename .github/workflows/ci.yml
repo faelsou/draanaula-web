@@ -42,7 +42,7 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t faelsouz/destetica-web:${{ steps.set_tag.outputs.image_tag }} .
+          docker build -t faelsouz/estetica-web:${{ steps.set_tag.outputs.image_tag }} .
           docker push faelsouz/estetica-web:${{ steps.set_tag.outputs.image_tag }}
 
   deploy:
@@ -64,6 +64,12 @@ jobs:
           kubectl set image deployment/estetica-web \
             estetica-web=faelsouz/estetica-web:${{ needs.build.outputs.image_tag }} \
             -n dra-web
+
+      - name: Forçar restart dos pods (touch annotation)
+        run: |
+          kubectl patch deployment estetica-web \
+            -n dra-web \
+            -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"restarted-at\":\"$(date +%s)\"}}}}}"
 
       - name: Aguardar rollout do Deployment
         run: |
@@ -92,3 +98,4 @@ jobs:
           done
           echo "Aplicação não respondeu!"
           exit 1
+        
