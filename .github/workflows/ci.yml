@@ -73,10 +73,14 @@ jobs:
             estetica-web=faelsouz/estetica-web:${{ needs.build.outputs.image_tag }} \
             -n dra-web
 
-      - name: Forçar restart dos pods (touch annotation)
+#      - name: Forçar restart dos pods (touch annotation)
+#        run: |
+#          kubectl rollout start deployment/estetica-web -n dra-web
+      - name: Forçar restart dos pods (annotation dummy)
         run: |
-          kubectl rollout start deployment/estetica-web -n dra-web
-          
+          kubectl patch deployment estetica-web -n dra-web \
+            -p "{\"spec\":{\"template\":{\"metadata\":{\"annotations\":{\"kubectl.kubernetes.io/restartedAt\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\"}}}}}"
+
       - name: Aguardar rollout do Deployment
         run: |
           kubectl rollout status deployment/estetica-web -n dra-web
